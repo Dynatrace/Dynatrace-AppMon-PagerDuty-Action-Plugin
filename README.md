@@ -15,7 +15,7 @@ Checks the API URL first using a GET request then processes the incident using P
 | Author | Josh Cho ([josh.cho@compuware.com](mailto:josh.cho@compuware.com))
 | Supported dynaTrace Versions | >= 5.5
 | License | [dynaTrace BSD](dynaTraceBSD.txt)
-| Support | Community Supported (https://community.compuwareapm.com/community/display/DL/Support+Levels)
+| Support | [Community Supported](https://community.compuwareapm.com/community/display/DL/Support+Levels)
 | Release History | 2014-03-14 Initial Release
 | Download | [com.dynatrace.pagerduty_1.0.0.jar.zip](com.dynatrace.pagerduty_1.0.0.jar.zip)
 
