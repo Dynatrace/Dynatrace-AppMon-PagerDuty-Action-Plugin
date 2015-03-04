@@ -108,10 +108,27 @@ public class PagerDutyActionPlugin implements Action {
 			JSONObject jsonObj = new JSONObject();
 			
 			jsonObj.put("service_key", apikey);
-			jsonObj.put("event_type", "trigger");
-			jsonObj.put("description", incident.getMessage());
-			jsonObj.put("client", "dynaTrace");
-			jsonObj.put("client_url", incident.getServerName());
+			jsonObj.put("incident_key", incident.getKey().getUUID());
+			
+			//DETERMINE INCIDENT STATUS AND SET EVENT TYPE
+			if(incident.isClosed() == true){
+				jsonObj.put("event_type", "resolve");
+			}
+			else{
+				jsonObj.put("event_type", "trigger");
+			}
+			
+			//DETERMINE INCIDENT STATUS AND SET MESSAGE
+			if(incident.isClosed() == true){
+				jsonObj.put("description", "Closed - " + message);
+			}
+			else{
+				jsonObj.put("description", message);
+			}
+			
+			//ENABLE DRILLDOWN INTEGRATION IN THE FUTURE
+			//jsonObj.put("client", "dynaTrace");
+			//jsonObj.put("client_url", incident.getServerName());
 			
 			//JSON CREATION FOR 'DETAILS'
 			JSONObject jsonObj2 = new JSONObject();
@@ -123,8 +140,10 @@ public class PagerDutyActionPlugin implements Action {
 				log.fine("Measure " + violation.getViolatedMeasure().getName() + " violoated threshold.");
 			}
 			
-			//APPEND DETAILS JSON TO ORIGINAL JSON
-			jsonObj.put("details", jsonObj2);
+			//IF INCIDENT IS TRIGGERING THEN APPEND DETAILS JSON TO ORIGINAL JSON
+			if(incident.isOpen() == true){
+				jsonObj.put("details", jsonObj2);
+			}
 			
 			//JSON TO STRING
 			String jsonString = jsonObj.toJSONString();
@@ -230,7 +249,12 @@ public class PagerDutyActionPlugin implements Action {
 					log.fine("Status: " + jsonResponse.get("status").toString());
 					log.fine("Message: " + jsonResponse.get("message").toString());
 					log.fine("Incident Key: " + jsonResponse.get("incident_key").toString());
-					log.info("Successfully forwarded incident to PagerDuty for incident: " + incident.getMessage() + ". The incident key is: " + jsonResponse.get("incident_key").toString());
+					if(incident.isClosed() == true){
+						log.info("Successfully closed incident: " + message + ". The incident key is: " + jsonResponse.get("incident_key").toString());
+					}
+					else{
+						log.info("Successfully forwarded incident to PagerDuty for incident: " + message + ". The incident key is: " + jsonResponse.get("incident_key").toString());
+					}
 				}
 			}
 			

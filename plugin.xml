@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
-<!-- plugin.xml file written by dynaTrace Client 5.5.0 -->
+<!-- plugin.xml file written by dynaTrace Client 5.6.0 -->
 <plugin>
   <extension point="com.dynatrace.diagnostics.pdk.pluginconfig" id="com.dynatrace.pagerduty" name="PagerDuty Plugin">
     <information>
       <category value="" />
       <displayname value="PagerDuty Plugin" />
-      <description value="Allows dynaTrace incidents to be forwarded to PagerDuty via PagerDuty API. Checks the URL first using a GET request then processes the incident using POST." />
+      <description value="Allows Dynatrace Application Monitoring incidents to be forwarded to PagerDuty via PagerDuty REST API. Optionally set to automatically close incidents on PagerDuty if incident is ended on Dynatrace Application Monitoring. Checks the URL first using a GET request then processes the incident using POST." />
       <supportlevel value="unsupported" />
     </information>
     <configuration>
       <property key="url" label="URL" type="url" description="PagerDuty API URL" default="https://events.pagerduty.com/generic/2010-04-15/create_event.json" />
-      <property key="key" label="API Key" type="string" description="PagerDuty API Key" default="" multiline="false" />
-      <property key="timeout" label="Timeout" type="double" description="Connection Timeout in ms" default="5000.0" />
+      <property key="key" label="Service API Key" type="string" description="PagerDuty Service API Key. This is a 32 character key generated from PagerDuty when adding a 'Service'." default="" multiline="false" />
+      <property key="timeout" label="Timeout" type="double" description="Connection timeout in milliseconds. Default 5 seconds." default="5000.0" />
     </configuration>
   </extension>
   <extension point="com.dynatrace.diagnostics.pdk.action" id="com.dynatrace.pagerduty.action" name="PagerDuty Action Plugin">
