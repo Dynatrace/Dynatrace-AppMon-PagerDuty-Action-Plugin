@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Require-Bundle: com.dynatrace.diagnostics.sdk
 Bundle-Vendor: Josh Cho
 Bundle-ClassPath: .,lib/json-simple-1.1.1.jar
-Bundle-Version: 1.0.0
+Bundle-Version: 1.1.0
 Bundle-Name: PagerDuty Plugin
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: com.dynatrace.pagerduty;singleton:=true
